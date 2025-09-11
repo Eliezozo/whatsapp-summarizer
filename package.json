@@ -1,0 +1,40 @@
+{
+	"name": "whatsapp-summarizer",
+	"version": "0.0.1",
+	"description": "Un bot whatsapp qui résume les messages des utilisateurs grâce à un code secret",
+	"homepage": "https://github.com/georgesnoe/whatsapp-summarizer#readme",
+	"bugs": {
+		"url": "https://github.com/georgesnoe/whatsapp-summarizer/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/georgesnoe/whatsapp-summarizer.git"
+	},
+	"license": "MIT",
+	"author": "Georges-Noé, Elie",
+	"type": "module",
+	"main": "api/index.js",
+	"scripts": {
+		"dev": "concurrently 'npm run dev:compile' 'npm run dev:server'",
+		"dev:compile": "tsc --watch",
+		"dev:server": "nodemon --watch api --watch .env api/index.js",
+		"test": "tsc && node api/index.js"
+	},
+	"dependencies": {
+		"@google/genai": "^1.19.0",
+		"cors": "^2.8.5",
+		"dotenv": "^17.2.2",
+		"express": "^5.1.0",
+		"pg": "^8.16.3"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.19",
+		"@types/dotenv": "^6.1.1",
+		"@types/express": "^5.0.3",
+		"@types/node": "^24.3.1",
+		"@types/pg": "^8.15.5",
+		"concurrently": "^9.2.1",
+		"nodemon": "^3.1.10",
+		"typescript": "^5.9.2"
+	}
+}

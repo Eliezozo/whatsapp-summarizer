@@ -4,9 +4,9 @@ dotenv.config({
 	path: ".env",
 });
 
+import { GoogleGenAI } from "@google/genai";
 import cors from "cors";
 import express, { type Request, type Response } from "express";
-import { GoogleGenAI } from "@google/genai";
 import { Pool } from "pg";
 
 export const pool = new Pool({
@@ -166,7 +166,7 @@ Contenu: {message_whatsapp_envoyé_par_l'expéditeur}
 
 function convertToWhatsappMarkdown(markdownText: string | undefined) {
 	if (!markdownText) return "";
-	const boldRegex = /\*\*([^\*]+)\*\*/g;
+	const boldRegex = /\*\*([^*]+)\*\*/g;
 	const italicRegex = /__([^_]+)__/g;
 	const strikethroughRegex = /~~([^~]+)~~/g;
 	const monospaceRegex = /`([^`]+)`/g;
@@ -190,7 +190,7 @@ app.set("trust proxy", true);
 // Serves as a webhook.
 // Receive data from ultramsg API
 app.post("/whatsapp-webhook", async (req: Request, res: Response) => {
-	let message = req.body;
+	const message = req.body;
 	// Check if secret message is being sent
 	if (req.headers["content-type"] === "application/json") {
 		const body = `${message.data.body}`;

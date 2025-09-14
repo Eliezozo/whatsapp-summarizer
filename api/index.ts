@@ -160,7 +160,25 @@ Contenu: {message_whatsapp_envoyé_par_l'expéditeur}
 ----------`,
 		},
 	});
-	return response.text;
+
+	return convertToWhatsappMarkdown(response.text);
+}
+
+function convertToWhatsappMarkdown(markdownText: string | undefined) {
+	if (!markdownText) return "";
+	const boldRegex = /\*\*([^\*]+)\*\*/g;
+	const italicRegex = /__([^_]+)__/g;
+	const strikethroughRegex = /~~([^~]+)~~/g;
+	const monospaceRegex = /`([^`]+)`/g;
+	const lineBreakRegex = /\s\s\n/g;
+
+	let whatsappText = markdownText.replace(boldRegex, "*$1*");
+	whatsappText = whatsappText.replace(italicRegex, "_$1_");
+	whatsappText = whatsappText.replace(strikethroughRegex, "~$1~");
+	whatsappText = whatsappText.replace(monospaceRegex, "```$1```");
+	whatsappText = whatsappText.replace(lineBreakRegex, "\n");
+
+	return whatsappText;
 }
 
 const app = express();
